@@ -1,0 +1,28 @@
+- name: Restart and update services
+  hosts: home
+  tasks:
+    - name: Ping my hosts
+      ansible.builtin.ping:
+
+    - name: Update packages
+      become: true
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+
+    - name: copy docker-compose.yml
+      copy:
+        src: freshrss/
+        dest: freshrss/
+
+    - name: Update containers
+      become: true
+      community.docker.docker_compose:
+        project_src: freshrss/
+        pull: true
+        state: present
+      register: output
+
+    - name: Show results
+      ansible.builtin.debug:
+        var: output

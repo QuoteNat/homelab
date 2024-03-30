@@ -1,0 +1,5 @@
+home:
+  hosts:
+    raspberrypi:
+      ansible_host: raspberrypi
+      ansible_user: nat
