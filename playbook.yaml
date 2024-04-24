@@ -29,6 +29,13 @@
         owner: nat
         mode: u+rw
 
+    - name: Stop all services
+      tags: docker
+      community.docker.docker_compose:
+        project_src: /home/nat
+        build: false
+        stopped: true
+
     - name: Update containers
       tags: docker
       become: true
