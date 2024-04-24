@@ -15,18 +15,27 @@
       ansible.builtin.reboot:
 
     - name: copy docker-compose.yml
+      tags: docker
       copy:
-        src: freshrss/
-        dest: freshrss/
+        src: docker-compose.yml  
+        dest: ~/docker-compose.yml
+
+    - name: copy radicale files
+      tags: docker
+      copy:
+        src: radicale/
+        dest: ~/radicale/
 
     - name: Update containers
+      tags: docker
       become: true
       community.docker.docker_compose:
-        project_src: freshrss/
+        project_src: /home/nat
         pull: true
         state: present
       register: output
 
-    - name: Show results
+    - name: Show docker results
+      tags: docker
       ansible.builtin.debug:
         var: output

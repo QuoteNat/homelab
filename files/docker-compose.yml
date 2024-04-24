@@ -1,6 +1,7 @@
 volumes:
   data:
   extensions:
+  radicale_data:
 
 services:
   freshrss:
