@@ -39,6 +39,7 @@ services:
 
   caldav:
     build: radicale
+    restart: unless-stopped
     ports: 
       - "5232:5232"
     volumes:
@@ -46,6 +47,7 @@ services:
 
   kanboard:
     image: kanboard/kanboard:latest
+    restart: unless-stopped
     ports:
       - "8081:80"
     volumes:
