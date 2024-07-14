@@ -33,19 +33,19 @@
       tags: docker
       community.docker.docker_compose_v2:
         project_src: /home/nat
-        build: false
-        stopped: true
+        state: stopped
 
     - name: Update containers
-      tags: docker
+      tags: docker start
       become: true
       community.docker.docker_compose_v2:
         project_src: /home/nat
-        pull: true
+        pull: always
         state: present
+        build: always
       register: output
 
     - name: Show docker results
-      tags: docker
+      tags: docker start
       ansible.builtin.debug:
         var: output
