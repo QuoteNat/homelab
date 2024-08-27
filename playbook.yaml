@@ -34,9 +34,18 @@
       community.docker.docker_compose_v2:
         project_src: /home/nat
         state: stopped
+        remove_orphans: true
+
+    - name: Prune everything
+      tags: docker
+      community.docker.docker_prune:
+        builder_cache: true
+        images: true
 
     - name: Update containers
-      tags: docker start
+      tags: 
+        - docker 
+        - start
       become: true
       community.docker.docker_compose_v2:
         project_src: /home/nat

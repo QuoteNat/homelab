@@ -37,13 +37,13 @@ services:
       # Optional advanced parameter controlling the internal Apache listening port
       LISTEN: 0.0.0.0:80
 
-  caldav:
-    build: radicale
-    restart: unless-stopped
-    ports: 
-      - "5232:5232"
-    volumes:
-      - radicale_data:/var/lib/radicale/collections
+#  caldav:
+#    build: radicale
+#    restart: unless-stopped
+#    ports: 
+#      - "5232:5232"
+#    volumes:
+#      - radicale_data:/var/lib/radicale/collections
 
   kanboard:
     image: kanboard/kanboard:latest
