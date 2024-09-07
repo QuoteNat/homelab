@@ -21,11 +21,11 @@
         dest: ~/docker-compose.yml
         owner: nat
         mode: u+rw
-    - name: Copy radicale files
+    - name: Copy opodsync files
       tags: docker
       ansible.builtin.copy:
-        src: radicale/
-        dest: ~/radicale/
+        src: opodsync/
+        dest: ~/opodsync/
         owner: nat
         mode: u+rw
 
