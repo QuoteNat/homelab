@@ -23,11 +23,9 @@
         mode: u+rw
     - name: Copy opodsync files
       tags: docker
-      ansible.builtin.copy:
+      ansible.posix.synchronize:
         src: opodsync/
         dest: ~/opodsync/
-        owner: nat
-        mode: u+rw
 
     - name: Stop all services
       tags: docker
@@ -43,8 +41,8 @@
         images: true
 
     - name: Update containers
-      tags: 
-        - docker 
+      tags:
+        - docker
         - start
       become: true
       community.docker.docker_compose_v2:

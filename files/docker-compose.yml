@@ -38,6 +38,7 @@ services:
       LISTEN: 0.0.0.0:80
   gpodder:
     container_name: opodsync
+    restart: unless-stopped
     build:
       context: ./opodsync
       dockerfile: Dockerfile
