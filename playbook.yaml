@@ -39,6 +39,7 @@
       community.docker.docker_prune:
         builder_cache: true
         images: true
+        volumes: false
 
     - name: Update containers
       tags:
