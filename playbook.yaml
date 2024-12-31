@@ -21,11 +21,6 @@
         dest: ~/docker-compose.yml
         owner: nat
         mode: u+rw
-    - name: Copy opodsync files
-      tags: docker
-      ansible.posix.synchronize:
-        src: opodsync/
-        dest: ~/opodsync/
 
     - name: Stop all services
       tags: docker

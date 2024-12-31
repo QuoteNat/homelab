@@ -1,7 +1,4 @@
 volumes:
-  data:
-  extensions:
-  radicale_data:
   kanboard_data:
   kanboard_plugins:
   kanboard_ssl:
@@ -9,47 +6,6 @@ volumes:
   miniflux-db:
 
 services:
-  freshrss:
-    image: freshrss/freshrss:latest
-    container_name: freshrss
-    restart: unless-stopped
-    logging:
-      options:
-        max-size: 10m
-    volumes:
-      # Recommended volume for FreshRSS persistent data such as configuration and SQLite databases
-      - data:/var/www/FreshRSS/data
-      # Optional volume for storing third-party extensions
-      - extensions:/var/www/FreshRSS/extensions
-      # Optional file providing custom global settings (used before a FreshRSS install)
-      - ./config.custom.php:/var/www/FreshRSS/data/config.custom.php
-      # Optional file providing custom user settings (used before a new user is created)
-      - ./config-user.custom.php:/var/www/FreshRSS/data/config-user.custom.php
-    ports:
-      # If you want to open a port 8080 on the local machine:
-      - "8080:80"
-    environment:
-      # A timezone http://php.net/timezones (default is UTC)
-      TZ: America/Chicago
-      # Cron job to refresh feeds at specified minutes
-      CRON_MIN: '2,32'
-      # 'development' for additional logs; default is 'production'
-      #FRESHRSS_ENV: development
-      # Optional advanced parameter controlling the internal Apache listening port
-      LISTEN: 0.0.0.0:80
-  gpodder:
-    container_name: opodsync
-    restart: unless-stopped
-    build:
-      context: ./opodsync
-      dockerfile: Dockerfile
-    volumes:
-      - type: bind
-        source: ./opodsync/server/data
-        target: /var/www/server/data
-    hostname: opodsync.localhost
-    ports:
-      - 8081:8080
   miniflux:
     image: miniflux/miniflux:latest
     restart: unless-stopped
@@ -66,10 +22,10 @@ services:
       - ADMIN_PASSWORD=test123
       - BASE_URL=http://raspberrypi:8082
       - FETCH_YOUTUBE_WATCH_TIME=1
-      # This will hopefully prevent feeds getting suspended during temporary internet outages.
-      - POLLING_PARSING_ERROR_LIMIT=0
+      # - POLLING_PARSING_ERROR_LIMIT=0
   db:
     image: postgres:15
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=miniflux
       - POSTGRES_PASSWORD=secret
@@ -82,9 +38,12 @@ services:
       start_period: 30s
   kanboard:
     image: kanboard/kanboard:latest
+    restart: unless-stopped
     ports:
       - "8083:80"
       # - "443:443"
+    environment:
+      - PLUGIN_INSTALLER=true
     volumes:
       - kanboard_data:/var/www/app/data
       - kanboard_plugins:/var/www/app/plugins
