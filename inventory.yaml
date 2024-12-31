@@ -1,5 +1,5 @@
 home:
   hosts:
     raspberrypi:
-      ansible_host: raspberrypi.local
+      ansible_host: raspberrypi
       ansible_user: nat
