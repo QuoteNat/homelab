@@ -22,6 +22,14 @@
         owner: nat
         mode: u+rw
 
+    - name: Copy my_secret.txt
+      tags: docker
+      ansible.builtin.copy:
+        src: my_secret.txt
+        dest: ~/my_secret.txt
+        owner: nat
+        mode: u+rw
+
     - name: Stop all services
       tags: docker
       community.docker.docker_compose_v2:
