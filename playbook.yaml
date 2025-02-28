@@ -4,16 +4,6 @@
     - name: Ping my hosts
       ansible.builtin.ping:
 
-    - name: Update packages
-      become: true
-      ansible.builtin.apt:
-        name: "*"
-        state: latest
-
-    - name: Restart server
-      become: true
-      ansible.builtin.reboot:
-
     - name: Copy docker-compose.yml
       tags: docker
       ansible.builtin.copy:
